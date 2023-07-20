@@ -1,0 +1,27 @@
+.registre {
+    display: flex;
+    justify-content: center;
+   
+}
+
+.second-registre{
+    border: 2px solid #252525; /* Establecer el ancho, estilo y color del borde */
+  border-radius: 10px; 
+}
+
+.incoSize{
+    font-size: 1.8em;  
+    margin-right: 0.5em;
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+}
+
+.h1-registre{
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+}
+

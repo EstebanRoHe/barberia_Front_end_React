@@ -1,0 +1,136 @@
+
+.carousel-item img {
+    max-height: 35em; 
+    filter: brightness(45%) saturate(100%); 
+    transition: filter 0.3s ease-in-out; 
+
+}
+
+  
+.carousel-caption.imagen-carousel-caption {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%; 
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000000' viewBox='0 0 16 16'%3E%3Cpath d='M5.5 12a.5.5 0 01-.354-.854L9.793 8 5.147 3.854A.5.5 0 116.561 2.44l5 5a.5.5 0 010 .708l-5 5a.498.498 0 01-.207.138A.5.5 0 015.5 12z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-prev-icon {
+  transform: scaleX(-1);
+}
+
+.carousel-indicators button {
+    background: radial-gradient(circle, white , #c4c2c2 100%);
+  }
+  
+
+
+.imagen-caption{
+    max-width: 22em; 
+}
+
+.h5-carousel{
+    margin-top: -4em;
+    font-size: 4em;
+    color:antiquewhite;
+    font-family: 'Lugrasimo';
+}
+
+.h5-carousel img {
+    justify-content: center;
+    margin-top: -2em;
+    filter: brightness(70%) saturate(150%); 
+}
+
+@media (max-width: 768px) {
+    .h5-carousel {
+      font-size: 50px;
+    }
+    .imagen-caption{
+        max-width: 17em; 
+    }
+
+  }
+
+@media (max-width: 500px) {
+    .h5-carousel {
+      font-size:30px;
+    }
+    .imagen-caption{
+        max-width: 10em; 
+    }
+    
+}
+
+@media (max-width: 320px) {
+    .h5-carousel {
+      font-size:20px;
+    }
+    .imagen-caption{
+        max-width: 6em; 
+    }
+}
+
+@media (max-width: 250px) {
+    .h5-carousel {
+      font-size:15px;
+    }
+    .imagen-caption{
+        max-width: 4em; 
+    }
+}
+
+@media (max-width: 200px) {
+    .h5-carousel {
+      font-size:8px;
+    }
+}
+ 
+.paragraph{
+    text-align: center;
+    font-family: 'Faustina', serif;
+}
+.imagen-container{
+    display: flex;
+    justify-content: center;
+}
+.imagen-thirs {
+    filter: brightness(15%);
+    max-width: 20em; 
+}
+
+.thirs{
+    margin: 2% 10% 5% 10%;
+}
+
+.four {
+    background-image: url('../images/servicios.jpeg');
+    filter: brightness(85%) saturate(90%); 
+    padding: 3% 0% 3% 0%;
+    color: aliceblue;
+  }
+  
+.card-index {
+    margin: 1%;
+    background-color: rgba(70, 67, 67, 0.377); 
+    color: aliceblue;
+    border: 3px solid;
+    border-color: #BF9456;
+}
+
+h6{
+    margin-top: 4%;
+}
+.h6-services{
+    font-weight: bold;
+    color: white;
+}
+

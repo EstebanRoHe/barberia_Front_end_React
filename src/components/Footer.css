@@ -1,0 +1,36 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+  
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+ 
+.footer {
+    background-color: #191B21;
+    color:#8C939A;
+ }
+  
+
+  /* móviles */
+@media (max-width: 767px) {
+    .footer {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+   
+    }
+  }
+  
+  /* grandes */
+@media (min-width: 768px) {
+    .footer {
+      bottom: 0%;
+      left: 0;
+      width: 100%;
+    }
+  }
+ 

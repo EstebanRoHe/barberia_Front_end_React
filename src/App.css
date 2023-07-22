@@ -1,3 +1,9 @@
+body {
+  display: flex;
+  flex-direction: column; 
+  margin: 0;
+  background: #23272F;
+}
 .App {
   text-align: center;
   
@@ -8,19 +14,16 @@ h1{
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
 
-body {
-  display: flex;
-  flex-direction: column; 
-  margin: 0;
-  background: #23272F;
-}
-
 .secondary {
   flex: 1;
   width: 100%;
   margin: 0;
 }
 
+p{
+  word-wrap: break-word;
+}
+/*
 @media (max-width: 767px) {
   .secondary{
       margin-Bottom:25%;
@@ -29,3 +32,4 @@ body {
   }
 }
 
+*/

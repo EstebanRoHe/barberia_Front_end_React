@@ -6,6 +6,9 @@ import Swal from "sweetalert2";
 
 const UserList = (props) => {
     const [User, setUser] = useState([]);
+    const [error, setError] = useState(false);
+    const [filtro, setFiltro] = useState("");
+    
     useEffect(() => {
         getList()
         // eslint-disable-next-line
@@ -61,24 +64,56 @@ const UserList = (props) => {
                         getList();
                         swalWithBootstrapButtons.fire(
                             "Eliminado!",
-                            "Tu archivo ha sido eliminado",
-                            "Correctamente"
+                            "Tu archivo ha sido eliminado Correctamente.",
+                            "success"
                         )
                     })
                         .catch(error => {
                             console.log(error);
                             swalWithBootstrapButtons.fire(
                                 'Error',
+                                'Hubo un error al eliminar el archivo',
                                 'error'
                             );
                         });
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         "Cancelado",
-                        "No se ha eliminado nungun archivo"
+                        "No se ha eliminado ningún archivo",
+                        "info"
                     );
                 }
             });
+    };
+
+    const handleFiltroChange = (event) => {
+        setFiltro(event.target.value);
+        filtroName(filtro);
+    };
+
+    const filtroName = (filtro) => {
+        const token = AuthServices.getAuthToken();
+        if (token) {
+            UserServices.setAuthToken(token);
+        } else {
+            console.error("No se encontró un token válido");
+            return;
+        }
+        if (filtro != null) {
+            UserServices.filter(filtro)
+                .then((response) => {
+                    setUser(response.data);
+                    setError(false);
+                    console.log(response.data);
+                })
+                .catch((e) => {
+                    setError(true);
+                    console.log(e);
+                    console.log("erorrrr");
+                });
+        } else {
+            getList()
+        }
     };
 
 
@@ -86,11 +121,33 @@ const UserList = (props) => {
         <div className="container">
 
             <div className="card text bg-light mb-3">
-
                 <div className="card-header d-flex justify-content-between">
                     <Link className="btn btn-primary " to={"/RegistreUser"}>
-                        <i className="bi bi-person-plus"> to register</i>
+                        <i className="bi bi-person-plus"> Registrar</i>
                     </Link>
+
+                    <div className="ml-auto d-flex flex-column">
+                            <div className="input-container">
+                            <input
+                                    type="text"
+                                    className="form-control filtro flex-grow-1"
+                                    value={filtro}
+                                    onChange={handleFiltroChange}
+                                    onBlur={handleFiltroChange}
+                                    onKeyUp={handleFiltroChange}
+                                    placeholder="Seach for name"
+                                />
+                            </div>
+                           
+                            {error && (
+                                <small className="errorSmall" id="helpId" style={{ marginTop: "1%" }}>
+                                    <i className="bi bi-exclamation-circle"> Usuario no encontrado</i>
+                                </small>
+                            )}
+                      
+                        </div>
+
+
                 </div>
                 <div className="card-body">
                     <div className="table-responsive">
@@ -115,7 +172,7 @@ const UserList = (props) => {
                                             <td>{username.email}</td>
                                             <td>
                                                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                    <Link className="btn btn-secondary" >
+                                                    <Link className="btn btn-secondary" to={"/UserUpDate/" + username.id} >
                                                         <i className="bi bi-gear"> Actualizar</i>
                                                     </Link>
 

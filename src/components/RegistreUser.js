@@ -5,7 +5,6 @@ import UserServices from "../services/UserServices";
 import { Link } from 'react-router-dom';
 import Swal from "sweetalert2";
 
-
 const RegistreUser = () => {
     const initialUserState = {
         id: null,
@@ -97,67 +96,70 @@ const RegistreUser = () => {
                 <div className="imagen-container">
                     <img src={logo} className="d-block w-100 imagen-thirs" alt="..." />
                 </div>
+
                 <div className="registre">
+                    <div className="card card-registre">
+                        <form className="row" onSubmit={createUser}>
+                            <div className="mb-3">
+                                <label className="form-label">Username</label>
+                                <input type="text" className="form-control" id="username"
+                                    name="username"
+                                    value={User.username}
+                                    onChange={handleInputChange}
+                                    required />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Password</label>
+                                <input type="password" className={((validPassword.password) ? "is-invalid" : "") + " form-control"}
+                                    id="password"
+                                    name="password"
+                                    value={User.password}
+                                    onChange={handleInputChange}
+                                    onBlur={handleInputblurPassword}
+                                    onKeyUp={handleInputblurPassword}
+                                    required
+                                />
 
-                    <form className="row" onSubmit={createUser}>
-                        <div className="col-xl-7 mb-3">
-                            <label className="form-label">Username</label>
-                            <input type="text" className="form-control" id="username"
-                                name="username"
-                                value={User.username}
-                                onChange={handleInputChange}
-                                required />
-                        </div>
-                        <div className="col-xl-7 mb-3">
-                            <label className="form-label">Password</label>
-                            <input type="password" className={((validPassword.password) ? "is-invalid" : "") + " form-control"}
-                                id="password"
-                                name="password"
-                                value={User.password}
-                                onChange={handleInputChange}
-                                onBlur={handleInputblurPassword}
-                                onKeyUp={handleInputblurPassword}
-                                required
-                            />
+                                <small className="invalid-feedback" id="helpId">
+                                    <i className="bi bi-exclamation-circle"> {validPassword.password}</i>
+                                </small>
+                            </div>
 
-                            <small className="invalid-feedback" id="helpId">
-                                <i className="bi bi-exclamation-circle"> {validPassword.password}</i>
-                            </small>
-                        </div>
+                            <div className="mb-3">
+                                <label className="form-label">First Name</label>
+                                <input type="text" className="form-control" id="first_name"
+                                    name="first_name"
+                                    value={User.first_name}
+                                    onChange={handleInputChange}
+                                    required />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Last Name</label>
+                                <input type="text" className="form-control" id="last_name"
+                                    name="last_name"
+                                    value={User.last_name}
+                                    onChange={handleInputChange}
+                                    required />
+                            </div>
 
-                        <div className="col-xl-7 mb-3">
-                            <label className="form-label">First Name</label>
-                            <input type="text" className="form-control" id="first_name"
-                                name="first_name"
-                                value={User.first_name}
-                                onChange={handleInputChange}
-                                required />
-                        </div>
-                        <div className="col-xl-7 mb-3">
-                            <label className="form-label">Last Name</label>
-                            <input type="text" className="form-control" id="last_name"
-                                name="last_name"
-                                value={User.last_name}
-                                onChange={handleInputChange}
-                                required />
-                        </div>
+                            <div className="mb-3">
+                                <label className="form-label">Email</label>
+                                <input type="email" className="form-control" id="email"
+                                    name="email"
+                                    value={User.email}
+                                    onChange={handleInputChange}
+                                    required />
+                            </div>
 
-                        <div className="col-xl-7 mb-3">
-                            <label className="form-label">Email</label>
-                            <input type="email" className="form-control" id="email"
-                                name="email"
-                                value={User.email}
-                                onChange={handleInputChange}
-                                required />
-                        </div>
-
-                        <div className="col-7" >
-                            <button type="submit" className="btn btn-primary" >Sign in</button>
-                            <Link className="btn btn-danger" to={"/"} style={{ marginLeft: "1%" }}>
-                                <i className="bi bi-x-circle"> Cancelar</i>
-                            </Link>
-                        </div>
-                    </form>
+                            <div>
+                                <button type="submit" className="btn btn-primary" >Sign in
+                                </button>
+                                <Link className="btn btn-danger" to={"/"} style={{ marginLeft: "1%" }}>
+                                    <i className="bi bi-x-circle"> Cancelar</i>
+                                </Link>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

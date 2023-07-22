@@ -1,6 +1,5 @@
 import React,{useEffect,useState } from 'react';
 import { Routes, Route, Link} from 'react-router-dom';
-import Swal from "sweetalert2";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -10,6 +9,10 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import AuthServices from './services/AuthServices';
 import RegistreUser from './components/RegistreUser';
+import UserUpDate from './components/UserUpDate';
+import BlocList from './components/BlocList';
+import CreateBloc from './components/CreateBloc';
+import BlocUpDate from './components/BlocUpDate';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,8 +31,7 @@ function App() {
 
   return (
 
-    <>
-    <div className='principal'>
+    <div className='app-container'>
       <nav className="navbar navbar-expand-lg bg-body-tertiary ">
         <div className="container-fluid">
           <Link className="navbar-brand" to={"/"}>Barbería</Link>
@@ -52,7 +54,7 @@ function App() {
                 </ul>
               </li>
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to={"/Login"}>Bloc</Link>
+                <Link className="nav-link active" aria-current="page" to={"/BlocList"}>Bloc</Link>
               </li>
 
               <li className="nav-item">
@@ -86,14 +88,19 @@ function App() {
           <Route path="/Login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/RegistreUser" element={<RegistreUser />} />
           <Route path="/UserList" element={<UserList />} />
+          <Route path="/UserUpDate/:id" element={<UserUpDate />} />
+          <Route path="/BlocList" element={<BlocList />} />
+          <Route path="/CreateBloc" element={<CreateBloc />} />
+          <Route path="/BlocUpDate/:id" element={<BlocUpDate />} />
         </Routes>
-
+       
       </div>
 
+      <Footer />
 
     </div>
-    <Footer />
-    </>
+    
+   
   );
 }
 

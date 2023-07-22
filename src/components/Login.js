@@ -26,68 +26,66 @@ const Login = ({ setIsLoggedIn }) => {
     };
 
     return (
-        <div className="login-container">
+        <div className="login ">
+            <div className='container'>
+            <div className="in">
+                    <div className="card card-login">
+                        <form className='form-login' onSubmit={handleLogin} >
+                            <h2 className='h2-login'>Ingresar</h2><hr/>
+                            <div className="mb-3" >
+                                <div className="input"  >
+                                    <i className="bi bi-person logo-login"></i>
+                                    <input
+                                        type="text"
+                                        className="form-input"
+                                        id="username"
+                                        aria-describedby="emailHelp"
+                                        placeholder="Username"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <div className="input">
+                                    <i className="bi bi-lock logo-login"></i>
+                                    <input
+                                        type="password"
+                                        className="form-input"
+                                        id="password"
+                                        placeholder="Password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </div>
+                            </div>
 
-            <div className="content card-index" style={{ padding: "5%" }} >
+                            {errors && (
+                                <div className='errorDiv'>
+                                    <small className="errorSmall" id="helpId" >
+                                        <i className="bi bi-exclamation-circle "> Usuario o contraseña incorrecta</i>
 
-                <h2 className='h2-login'>Ingresar</h2><hr />
-                <form onSubmit={handleLogin}>
-                    <div className="mb-3">
-                        <div className="input-group">
-                            <i className="bi bi-person"></i>
-                            <input
-                                type="text"
-                                className="form-input"
-                                id="username"
-                                aria-describedby="emailHelp"
-                                placeholder="Username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </div>
+                                    </small>
+                                </div>
+                            )}
+
+                            <button type="submit" className="btn btn-secondary">
+                                Iniciar sesión
+                            </button>
+                            <div>
+                                <Link className="btn btn-primary" to={"/RegistreUser"} >
+                                    <i className="bi bi-person-plus"> Registrarse</i>
+                                </Link>
+                            </div>
+                           
+
+                        </form>
                     </div>
-                    <div className="mb-3">
-                        <div className="input-group">
-                            <i className="bi bi-lock"></i>
-                            <input
-                                type="password"
-                                className="form-input"
-                                id="password"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
-                    {errors && (
-                        <div className='errorDiv'>
-                            <small className="errorSmall" id="helpId" >
-                                <i className="bi bi-exclamation-circle"> Usuario o contraseña incorrecta</i>
-
-                            </small>
-                        </div>
-                    )}
-
-                    <button type="submit" className="btn btn-secondary">
-                        Iniciar sesión
-                    </button>
-
-
-                </form>
-                <div>
-                    <Link className="btn btn-primary"to={"/RegistreUser"} >
-                        <i className="bi bi-person-plus"> Registrarse</i>
-                    </Link>
                 </div>
-                <div>
-                    <Link className="btn btn-success" to={"/"}>
-                        <i className="bi bi-box-arrow-left"> Regresar</i>
-                    </Link>
-                </div>
-
             </div>
-        </div >
+            </div>
+
+
     );
 }
 

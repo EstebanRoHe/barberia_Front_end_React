@@ -4,13 +4,14 @@ let authToken = null;
 const setAuthToken = (token) => {
   authToken = token;
 };
+
 const getAll = ()=>{
     const config = {
         headers: {
           Authorization: `Token ${authToken}`, 
         },
       };
-    return http.get("/list/", config)
+    return http.get("/bloc/list/", config)
 }
 
 const getBy = id=>{
@@ -19,11 +20,16 @@ const getBy = id=>{
           Authorization: `Token ${authToken}`, 
         },
       };
-    return http.get(`/findByid/${id}`, config);
+    return http.get(`/bloc/findBy/${id}`, config);
 };
 
 const create = data => {
-    return http.post("/register/",data);
+  const config = {
+    headers: {
+      Authorization: `Token ${authToken}`, 
+    },
+  };
+    return http.post("/bloc/create/",data, config);
 };
 
 const update = (id, data) => {
@@ -32,36 +38,25 @@ const update = (id, data) => {
       Authorization: `Token ${authToken}`, 
     },
   };
-  return http.put(`/update/${id}/`, data, config);
+  return http.put(`/bloc/update/${id}/`, data, config);
 };
 
 
-const remove = idUser => {
+const remove = id => {
     const config = {
         headers: {
           Authorization: `Token ${authToken}`, 
         },
       };
-    return http.delete(`/delete/${idUser}`, config);
+    return http.delete(`/bloc/delete/${id}`, config);
 };
 
-const filter = firstName=> {
-  const config = {
-      headers: {
-        Authorization: `Token ${authToken}`, 
-      },
-    };
-  return http.get(`/users/search/?first_name=${firstName}`, config);
-};
-
-const UserServices = {
+const BlocServices = {
     getAll,
     getBy,
     create,
     update,
     remove,
-    filter,
     setAuthToken,
-
 };
-export default UserServices;
+export default BlocServices;

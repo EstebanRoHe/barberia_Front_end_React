@@ -74,7 +74,7 @@ const BlocUpDate = () =>{
 
     };
     return (
-        <div className="first-bloc">
+        <div className="first-update-bloc">
             <div className="container">
                 <h1 className="h1-registre">Actualizar Post</h1>
                 <div className="imagen-container">

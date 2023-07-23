@@ -1,17 +1,18 @@
 body {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   margin: 0;
   background: #23272F;
 }
+
 .App {
   text-align: center;
-  
+
 }
 
-h1{
+h1 {
   font-weight: bold;
-  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
 
 .secondary {
@@ -20,16 +21,21 @@ h1{
   margin: 0;
 }
 
-p{
+p {
   word-wrap: break-word;
 }
-/*
-@media (max-width: 767px) {
-  .secondary{
-      margin-Bottom:25%;
-      width: 100%;
-     
-  }
+
+.negrita {
+  font-weight: bold;
 }
 
-*/
+.color-nav {
+  background-color: #5d8b8fc0;
+  font-family: revert-layer;
+
+}
+
+
+
+
+

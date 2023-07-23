@@ -90,9 +90,9 @@ const RegistreUser = () => {
 
 
     return (
-        <div className="first">
-            <div className="container">
-                <h1 className="h1-registre">Registrer</h1>
+        <div className="first" >
+            <div className="container" >
+                <h1 className="h1-registre">Registro</h1>
                 <div className="imagen-container">
                     <img src={logo} className="d-block w-100 imagen-thirs" alt="..." />
                 </div>
@@ -126,7 +126,7 @@ const RegistreUser = () => {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label">First Name</label>
+                                <label className="form-label">Nombre</label>
                                 <input type="text" className="form-control" id="first_name"
                                     name="first_name"
                                     value={User.first_name}
@@ -134,7 +134,7 @@ const RegistreUser = () => {
                                     required />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label">Last Name</label>
+                                <label className="form-label">Apellidos</label>
                                 <input type="text" className="form-control" id="last_name"
                                     name="last_name"
                                     value={User.last_name}

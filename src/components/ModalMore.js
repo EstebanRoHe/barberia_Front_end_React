@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import AuthServices from "../services/AuthServices";
 import BlocServices from "../services/BlocServices";
 import Swal from "sweetalert2";
+import './ModalMore.css'
 
 const ModalMore = ({ showModal, setShowModal, id, description, url, username, first_name, last_name, email, getList }) => {
     const handleClose = () => setShowModal(false);
@@ -69,7 +70,8 @@ const ModalMore = ({ showModal, setShowModal, id, description, url, username, fi
     return (
         <>
             <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
+
+                <Modal.Header closeButton className="modal-color">
                     <div className="container d-flex align-items-center">
                         <h4>
                             <i className="bi bi-person-circle"> </i>
@@ -78,7 +80,7 @@ const ModalMore = ({ showModal, setShowModal, id, description, url, username, fi
 
                     </div>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="segundo-color">
                     <p>
                         <i className="bi bi-person-lines-fill"> </i>{first_name + " " + last_name}<br />
                         <i className="bi bi-envelope-at"> </i>{email}
@@ -87,14 +89,14 @@ const ModalMore = ({ showModal, setShowModal, id, description, url, username, fi
                     <i className="bi bi-card-text"> </i> {description}
                 </Modal.Body>
 
-                <Modal.Footer>
+                <Modal.Footer className="segundo-color">
                     <div>
-                        <img src={url} className="img-fluid rounded-start" alt="..." />
+                    <img src={url} className="img-fluid rounded-start rotate-on-hover" alt="..." />
                     </div>
 
                 </Modal.Footer >
 
-                <Modal.Footer>
+                <Modal.Footer >
 
                     <Button variant="danger" onClick={() => remove(id)}>
                         <i className="bi bi-trash3"> </i>

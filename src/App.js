@@ -13,6 +13,7 @@ import UserUpDate from './components/UserUpDate';
 import BlocList from './components/BlocList';
 import CreateBloc from './components/CreateBloc';
 import BlocUpDate from './components/BlocUpDate';
+import AboutUs from './components/AboutUs';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,7 +33,7 @@ function App() {
   return (
 
     <div className='app-container'>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+      <nav className="navbar navbar-expand-lg color-nav" >
         <div className="container-fluid">
           <Link className="navbar-brand" to={"/"}>Barbería</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
@@ -42,23 +43,24 @@ function App() {
           <div className="collapse navbar-collapse" id="navbarScroll">
             <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style={{ bsScrollHeight: '100px' }}>
 
-              <li className="nav-item dropdown">
-                <Link className="nav-link dropdown-toggle" to={"/Login"} role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  About us
-                </Link>
-                <ul className="dropdown-menu">
-                  <li><Link className="dropdown-item" to={"/Login"}>Information</Link></li>
-                  <li><Link className="dropdown-item" to={"/Login"}>Contact us</Link></li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li><Link className="dropdown-item" to={"/RegistreUser"}>Registrer</Link></li>
-                </ul>
-              </li>
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to={"/BlocList"}>Bloc</Link>
+                <Link className="nav-link active" aria-current="page" to={"/AboutUs"}>Información</Link>
+              </li>
+
+              <li className="nav-item dropdown" >
+                <Link className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Nuestro Bloc
+                </Link>
+                <ul className="dropdown-menu" >
+                  <li><Link className="dropdown-item " to={"/BlocList"}>Ver Bloc</Link></li>
+                  <li><Link className="dropdown-item" to={"/CreateBloc"}>New Bloc</Link></li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><Link className="dropdown-item" to={"/RegistreUser"}>Registrarse</Link></li>
+                </ul>
               </li>
 
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to={"/UserList"}>Users</Link>
+                <Link className="nav-link active" aria-current="page" to={"/UserList"}>Usuarios</Link>
               </li>
 
             </ul>
@@ -92,6 +94,7 @@ function App() {
           <Route path="/BlocList" element={<BlocList />} />
           <Route path="/CreateBloc" element={<CreateBloc />} />
           <Route path="/BlocUpDate/:id" element={<BlocUpDate />} />
+          <Route path="/AboutUs" element={<AboutUs />} />
         </Routes>
        
       </div>

@@ -1,0 +1,40 @@
+.paginate-left{
+    color: rgb(26, 25, 25);
+    font-size: 24px; 
+    margin-left: 1%;
+    
+  }
+
+  .paginate-right {
+    color: rgb(26, 25, 25);
+    font-size: 24px; 
+  }
+
+  .page-count {
+    color: rgb(26, 25, 25);
+    padding: 8px;
+    border-radius: 4px;
+  }
+  .paginate-left:hover,
+  .paginate-right:hover,
+  .page-count:hover{
+    color: #918d8d;
+  }
+
+
+  .left-paginate-arrow-indexrent , .rigth-paginate {
+    font-size: 24px; 
+    color:#ffffff;
+  }
+  .indexrent-page-count{
+    color:#ffffff;
+    padding: 8px;
+    border-radius: 4px;
+  }
+
+.left-paginate-arrow-indexrent:hover,
+.rigth-paginate:hover,
+.indexrent-page-count:hover {
+  color: rgb(45, 67, 85); 
+}
+  

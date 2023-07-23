@@ -100,7 +100,7 @@ const UserUpDate = () => {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label">First Name</label>
+                                <label className="form-label">Nombre</label>
                                 <input type="text" className="form-control" id="first_name"
                                     name="first_name"
                                     value={User.first_name}
@@ -108,7 +108,7 @@ const UserUpDate = () => {
                                     required />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label">Last Name</label>
+                                <label className="form-label">Apellidos</label>
                                 <input type="text" className="form-control" id="last_name"
                                     name="last_name"
                                     value={User.last_name}
@@ -126,7 +126,9 @@ const UserUpDate = () => {
                             </div>
 
                             <div>
-                                <button type="submit" className="btn btn-primary" >Actualizar
+                                <button type="submit" className="btn btn-primary" >
+                                <i class="bi bi-gear">  Actualizar</i>
+                                   
                                 </button>
 
                                 <Link className="btn btn-danger" to={"/"} style={{ marginLeft: "1%" }}>

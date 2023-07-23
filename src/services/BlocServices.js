@@ -6,12 +6,8 @@ const setAuthToken = (token) => {
 };
 
 const getAll = ()=>{
-    const config = {
-        headers: {
-          Authorization: `Token ${authToken}`, 
-        },
-      };
-    return http.get("/bloc/list/", config)
+   
+    return http.get("/bloc/list/")
 }
 
 const getBy = id=>{

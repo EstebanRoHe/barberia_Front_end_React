@@ -3,16 +3,34 @@ import { Link } from 'react-router-dom';
 import UserServices from "../services/UserServices";
 import AuthServices from '../services/AuthServices';
 import Swal from "sweetalert2";
+import Pagination from "./Pagination";
 
 const UserList = (props) => {
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 9;
     const [User, setUser] = useState([]);
     const [error, setError] = useState(false);
     const [filtro, setFiltro] = useState("");
     
+
     useEffect(() => {
         getList()
         // eslint-disable-next-line
     }, []);
+
+    const handleFiltroChange = (event) => {
+        setFiltro(event.target.value);
+        filtroName(filtro);
+    };
+
+    const handlePageChange = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+
+    const paginated = User.slice(
+        currentPage * itemsPerPage,
+        (currentPage + 1) * itemsPerPage
+    );
 
 
     const getList = () => {
@@ -86,11 +104,6 @@ const UserList = (props) => {
             });
     };
 
-    const handleFiltroChange = (event) => {
-        setFiltro(event.target.value);
-        filtroName(filtro);
-    };
-
     const filtroName = (filtro) => {
         const token = AuthServices.getAuthToken();
         if (token) {
@@ -118,7 +131,7 @@ const UserList = (props) => {
 
 
     return (
-        <div className="container">
+        <div className="container" style={{ marginTop: "1%" }}>
 
             <div className="card text bg-light mb-3">
                 <div className="card-header d-flex justify-content-between">
@@ -127,25 +140,25 @@ const UserList = (props) => {
                     </Link>
 
                     <div className="ml-auto d-flex flex-column">
-                            <div className="input-container">
+                        <div className="input-container">
                             <input
-                                    type="text"
-                                    className="form-control filtro flex-grow-1"
-                                    value={filtro}
-                                    onChange={handleFiltroChange}
-                                    onBlur={handleFiltroChange}
-                                    onKeyUp={handleFiltroChange}
-                                    placeholder="Seach for name"
-                                />
-                            </div>
-                           
-                            {error && (
-                                <small className="errorSmall" id="helpId" style={{ marginTop: "1%" }}>
-                                    <i className="bi bi-exclamation-circle"> Usuario no encontrado</i>
-                                </small>
-                            )}
-                      
+                                type="text"
+                                className="form-control filtro flex-grow-1"
+                                value={filtro}
+                                onChange={handleFiltroChange}
+                                onBlur={handleFiltroChange}
+                                onKeyUp={handleFiltroChange}
+                                placeholder="Seach for name"
+                            />
                         </div>
+
+                        {error && (
+                            <small className="errorSmall" id="helpId" style={{ marginTop: "1%" }}>
+                                <i className="bi bi-exclamation-circle"> Usuario no encontrado</i>
+                            </small>
+                        )}
+
+                    </div>
 
 
                 </div>
@@ -163,7 +176,7 @@ const UserList = (props) => {
                             </thead>
                             <tbody>
                                 {User &&
-                                    User.map((username) => (
+                                    paginated.map((username) => (
                                         <tr key={username.id}>
                                             <th scope="row">{username.id}</th>
                                             <td>{username.username}</td>
@@ -186,6 +199,10 @@ const UserList = (props) => {
                                     ))}
                             </tbody>
                         </table>
+                        <Pagination
+                            pageCount={Math.ceil(User.length / itemsPerPage)}
+                            handlePageChange={handlePageChange}
+                        />
 
                     </div>
                 </div>

@@ -66,7 +66,7 @@ const CreateBloc = (prop) => {
     }
 
     return (
-        <div className="first-bloc">
+        <div className="first-create">
             <div className="container">
                 <h1 className="h1-registre">New Post</h1>
                 <div className="imagen-container">
@@ -86,7 +86,7 @@ const CreateBloc = (prop) => {
                                     required />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label">Description</label>
+                                <label className="form-label">Descripción</label>
                                 <textarea  type="text" className="form-control" id="description"
                                     name="description"
                                     value={bloc.description}
@@ -97,7 +97,9 @@ const CreateBloc = (prop) => {
 
 
                             <div>
-                                <button type="submit" className="btn btn-primary" >Create Post
+                                <button type="submit" className="btn btn-primary" >
+                                <i class="bi bi-plus-circle"> New Post</i>
+                                    
                                 </button>
                                 <Link className="btn btn-danger" to={"/BlocList"} style={{ marginLeft: "1%" }}>
                                     <i className="bi bi-x-circle"> Cancelar</i>

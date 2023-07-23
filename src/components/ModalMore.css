@@ -1,0 +1,15 @@
+.modal-color {
+    background-color: #785c4a8a;
+}
+
+
+.rotate-on-hover {
+    transition: transform 0.5s;
+}
+
+.rotate-on-hover:hover {
+    transform: scale(1.2) rotate(15deg); 
+}
+
+
+  

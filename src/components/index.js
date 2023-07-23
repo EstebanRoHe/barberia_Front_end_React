@@ -56,7 +56,7 @@ const index = () => {
                     <div className="imagen-container">
                     <img src={logo} className="d-block w-100 imagen-thirs" alt="..." />
                     </div>
-                    <h1 style={{ textAlign: "center" }}>Barber's Tico</h1>
+                    <h1 className="title-animacion" style={{ textAlign: "center" }}>Barber's Tico</h1>
                     <p className="paragraph">
                         ¡Bienvenido a "Barber's Tico"! Somos un santuario dedicado al arte del cuidado y estilo del cabello. Nuestra barbería combina la tradición de las barberías clásicas con un toque moderno y sofisticado. <br />
                         En un ambiente cálido y acogedor, te ofrecemos una experiencia de barbería excepcional que te dejará sintiéndote renovado y con una confianza renovada.<br />

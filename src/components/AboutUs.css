@@ -1,0 +1,43 @@
+.logo-face {
+    color: #1877F2;
+    font-size: 30px;
+    margin: 1%;
+    transition: color 0.4s, transform 0.4s;
+}
+
+.logo-twitter {
+    color: #1D9BF0;
+    font-size: 30px;
+    margin: 1%;
+    transition: color 0.4s, transform 0.4s;
+}
+
+.logo-instagram {
+    color: #C13584;
+    font-size: 30px;
+    margin: 1%;
+    transition: color 0.4s, transform 0.4s;
+}
+
+@keyframes colorChange {
+    0% { color: #271f09; } 
+    50% { color:#d10a0ad7; } 
+    100% { color: #680505d7; }
+  }
+  
+  @keyframes shadowPulse {
+    0% { text-shadow: 0 0 5px #d4a41fd7; }
+    50% { text-shadow: 0 0 15px #d4a41fd7; }
+    100% { text-shadow: 0 0 5px #d4a41fd7; }
+  }
+  
+  .logo-hover:hover {
+    animation: colorChange 1.5s infinite alternate, shadowPulse 1s infinite; 
+  }
+
+  /*
+.logo-hover:hover {
+    color: #d10a0ad7;
+    text-shadow: 0 0 1px #0ad12bd7, 0 0 5px #adadadd7, 0 0 5px #680505d7;
+}
+*/

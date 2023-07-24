@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from '../images/logo.png'
 import AuthServices from '../services/AuthServices';
 import BlocServices from "../services/BlocServices";
 import Swal from "sweetalert2";
 
-const CreateBloc = (prop) => {
-    const { id } = useParams();
+
+const CreateBloc = () => {
  
     const initialBlocState = {
         id: null,
@@ -16,6 +16,13 @@ const CreateBloc = (prop) => {
     }
 
     const [bloc, setBloc] = useState(initialBlocState);
+    const [id, setId] = useState(null);
+
+    useEffect(() => {
+      const idUser =  AuthServices.getAuthId();
+      setId(idUser)
+    }, []);
+   
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -36,7 +43,7 @@ const CreateBloc = (prop) => {
             id: bloc.id,
             description: bloc.description,
             url: bloc.url,
-            user: 3
+            user: id
         };
 
         BlocServices.create(data)
@@ -98,7 +105,7 @@ const CreateBloc = (prop) => {
 
                             <div>
                                 <button type="submit" className="btn btn-primary" >
-                                <i class="bi bi-plus-circle"> New Post</i>
+                                <i className="bi bi-plus-circle"> New Post</i>
                                     
                                 </button>
                                 <Link className="btn btn-danger" to={"/BlocList"} style={{ marginLeft: "1%" }}>

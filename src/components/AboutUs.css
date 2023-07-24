@@ -20,24 +20,17 @@
 }
 
 @keyframes colorChange {
-    0% { color: #271f09; } 
-    50% { color:#d10a0ad7; } 
-    100% { color: #680505d7; }
+    0% { color: rgba(0, 0, 0, 0.548)} 
+    50% { color:black; } 
+    100% { color: rgba(0, 0, 0, 0.438); }
   }
   
   @keyframes shadowPulse {
-    0% { text-shadow: 0 0 5px #d4a41fd7; }
-    50% { text-shadow: 0 0 15px #d4a41fd7; }
-    100% { text-shadow: 0 0 5px #d4a41fd7; }
+    0% { text-shadow: 0 0 5px black; }
+    50% { text-shadow: 0 0 15px black; }
+    100% { text-shadow: 0 0 5px black; }
   }
   
   .logo-hover:hover {
     animation: colorChange 1.5s infinite alternate, shadowPulse 1s infinite; 
   }
-
-  /*
-.logo-hover:hover {
-    color: #d10a0ad7;
-    text-shadow: 0 0 1px #0ad12bd7, 0 0 5px #adadadd7, 0 0 5px #680505d7;
-}
-*/

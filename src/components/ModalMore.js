@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -7,9 +7,8 @@ import BlocServices from "../services/BlocServices";
 import Swal from "sweetalert2";
 import './ModalMore.css'
 
-const ModalMore = ({ showModal, setShowModal, id, description, url, username, first_name, last_name, email, getList }) => {
+const ModalMore = ({ showModal, setShowModal, id, description, url, idUsername, username, first_name, last_name, email, getList, idAuth, roleAuth }) => {
     const handleClose = () => setShowModal(false);
-    const handleShow = () => setShowModal(true);
 
     const remove = (id) => {
         const token = AuthServices.getAuthToken();
@@ -91,24 +90,35 @@ const ModalMore = ({ showModal, setShowModal, id, description, url, username, fi
 
                 <Modal.Footer className="segundo-color">
                     <div>
-                    <img src={url} className="img-fluid rounded-start rotate-on-hover" alt="..." />
+                        <img src={url} className="img-fluid rounded-start rotate-on-hover" alt="..." />
                     </div>
 
                 </Modal.Footer >
 
                 <Modal.Footer >
+                    {idUsername === idAuth || roleAuth === 'admin' ? (
+                        <>
+                            <Button variant="danger" onClick={() => remove(id)}>
+                                <i className="bi bi-trash3"> </i>
+                                Eliminar
+                            </Button>
+                        </>
+                    ) : (
+                        <></>
+                    )}
 
-                    <Button variant="danger" onClick={() => remove(id)}>
-                        <i className="bi bi-trash3"> </i>
-                        Eliminar
-                    </Button>
-
-                    <Link className="btn btn-primary"
-                        onClick={handleClose}
-                        to={"/BlocUpDate/" + id} >
-                        <i className="bi bi-gear"> </i>
-                        Actualizar
-                    </Link>
+                    {idUsername === idAuth ? (
+                        <>
+                            <Link className="btn btn-primary"
+                                onClick={handleClose}
+                                to={"/BlocUpDate/" + id} >
+                                <i className="bi bi-gear"> </i>
+                                Actualizar
+                            </Link>
+                        </>
+                    ) : (
+                        <></>
+                    )}
 
                     <Button variant="secondary" onClick={handleClose}>
                         <i className="bi bi-x-circle"> </i>

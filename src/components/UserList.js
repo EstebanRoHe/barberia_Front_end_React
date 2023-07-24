@@ -5,7 +5,7 @@ import AuthServices from '../services/AuthServices';
 import Swal from "sweetalert2";
 import Pagination from "./Pagination";
 
-const UserList = (props) => {
+const UserList = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 9;
     const [User, setUser] = useState([]);

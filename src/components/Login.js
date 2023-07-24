@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthServices from '../services/AuthServices';
@@ -14,8 +14,12 @@ const Login = ({ setIsLoggedIn }) => {
         e.preventDefault();
         try {
             const response = await AuthServices.login({ username, password });
-            const { token } = response.data;
+            const { token, user_id, role} = response.data;
             AuthServices.setAuthToken(token);
+            AuthServices.setAuthId(user_id);
+            AuthServices.setAuthUsername(username);
+            AuthServices.setAuthRole(role);
+            console.log("user :", username)
             setErrors(false);
             setIsLoggedIn(true);
             navigate('/');

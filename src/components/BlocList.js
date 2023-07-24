@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import BlocServices from "../services/BlocServices";
 import AuthServices from '../services/AuthServices';
 import ModalMore from "./ModalMore";
 import "./BlocList.css"
-import logo from '../images/logo.png'
-import Pagination from "./Pagination";
 import ReactPaginate from 'react-paginate';
 
 const BlocList = () => {
@@ -13,10 +11,16 @@ const BlocList = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedBloc, setSelectedBloc] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
+    const [idAuth, setidAuth] = useState("");
+    const [role, setRole] = useState("")
     const itemsPerPage = 5;
 
     useEffect(() => {
         getList();
+        const idUser = AuthServices.getAuthId();
+        const roleAuth = AuthServices.getAuthRole();
+        setidAuth(idUser);
+        setRole(roleAuth);
     }, [])
 
     const getList = () => {
@@ -42,7 +46,6 @@ const BlocList = () => {
         currentPage * itemsPerPage,
         (currentPage + 1 ) * itemsPerPage
     );
-
 
 
     return (
@@ -89,10 +92,6 @@ const BlocList = () => {
 
                     </div>
                 </div>
-
-
-
-
             </div>
 
             {showModal && selectedBloc && (
@@ -102,11 +101,14 @@ const BlocList = () => {
                     id={selectedBloc.id}
                     description={selectedBloc.description}
                     url={selectedBloc.url}
+                    idUsername={selectedBloc.user_details.id}
                     username={selectedBloc.user_details.username}
                     first_name={selectedBloc.user_details.first_name}
                     last_name={selectedBloc.user_details.last_name}
                     email={selectedBloc.user_details.email}
                     getList={getList}
+                    idAuth = {idAuth}
+                    roleAuth = {role}
                 />
             )}
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import logo from '../images/logo.png'
 import "./AboutUs.css"
 
@@ -44,13 +44,13 @@ const AboutUs = () => {
                         <div className="horarioFooter">
                             <h3 className="negrita">Horario de atención</h3>
                             <p>
-                                <i class="bi bi-calendar-check"> </i> Lunes a Viernes: 9:00 AM - 7:00 PM
+                                <i className="bi bi-calendar-check"> </i> Lunes a Viernes: 9:00 AM - 7:00 PM
                             </p>
                             <p>
-                                <i class="bi bi-calendar-check"> </i> Sábados: 10:00 AM - 6:00 PM
+                                <i className="bi bi-calendar-check"> </i> Sábados: 10:00 AM - 6:00 PM
                             </p>
                             <p>
-                                <i class="bi bi-calendar-x"> </i> Domingos: Cerrado
+                                <i className="bi bi-calendar-x"> </i> Domingos: Cerrado
                             </p>
                         </div>
                     </div>

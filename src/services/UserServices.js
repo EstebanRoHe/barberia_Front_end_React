@@ -54,6 +54,10 @@ const filter = firstName=> {
   return http.get(`/users/search/?first_name=${firstName}`, config);
 };
 
+const check = ()=> {
+  return http.get(`/check/`);
+};
+
 const UserServices = {
     getAll,
     getBy,
@@ -62,6 +66,7 @@ const UserServices = {
     remove,
     filter,
     setAuthToken,
+    check,
 
 };
 export default UserServices;

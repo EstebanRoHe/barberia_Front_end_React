@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './RegistreUser.css'
 import logo from '../images/logo.png'
 import UserServices from "../services/UserServices";
@@ -18,17 +18,27 @@ const RegistreUser = () => {
 
     const [User, setUser] = useState(initialUserState);
     const [validPassword, setValidPassword] = useState({});
+    const [check, setCheck] = useState([]);
+    const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        getCheck();
+    }, [])
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setUser({ ...User, [name]: value });
+    };
 
+    const handleInputblur = (event) => {
+        handleInputChange(event);
+        setErrors(validationErrror(User));
     };
 
     const handleInputblurPassword = (event) => {
         handleInputChange(event);
         setValidPassword(validationPassword(User));
-
     };
 
     const createUser = (e) => {
@@ -41,8 +51,9 @@ const RegistreUser = () => {
             last_name: User.last_name,
             email: User.email,
         };
+        setErrors(validationErrror(User));
         setValidPassword(validationPassword(User));
-        if (Object.keys(validPassword).length === 0) {
+        if (Object.keys(errors).length === 0 && Object.keys(validPassword).length === 0) {
             UserServices.create(data)
                 .then(response => {
                     setUser({
@@ -70,8 +81,16 @@ const RegistreUser = () => {
         }
     };
 
-    const newUser = () => {
-        setUser(initialUserState);
+
+    const getCheck = (e) => {
+        UserServices.check()
+            .then((reponse) => {
+                setCheck(reponse.data)
+                console.log(reponse.data)
+            })
+            .catch((e) => {
+                console.log(e);
+            })
     }
 
     const validationPassword = (User) => {
@@ -88,6 +107,30 @@ const RegistreUser = () => {
         return validPassword;
     }
 
+    const validationErrror = (User) => {
+        let errors = {}
+        check.forEach(email => {
+            if (email.email === User.email) {
+                errors.email = "Email ya resgistrado"
+            }
+
+        })
+
+        check.forEach(username => {
+            if (username.username === User.username) {
+                errors.username = "Username ya resgistrado"
+                console.log("Username array : ", errors)
+            }
+        })
+
+        return errors;
+    }
+
+    const newUser = () => {
+        setUser(initialUserState);
+    }
+
+
 
     return (
         <div className="first" >
@@ -102,11 +145,17 @@ const RegistreUser = () => {
                         <form className="row" onSubmit={createUser}>
                             <div className="mb-3">
                                 <label className="form-label">Username</label>
-                                <input type="text" className="form-control" id="username"
+                                <input type="text" className={((errors.username) ? "is-invalid" : "") + " form-control"}
+                                    id="username"
                                     name="username"
                                     value={User.username}
                                     onChange={handleInputChange}
+                                    onKeyUp={handleInputblur}
+                                    onBlur={handleInputblur}
                                     required />
+                                <small className="invalid-feedback" id="helpId" >
+                                    <i className="bi bi-exclamation-circle"> {errors.username}</i>
+                                </small>
                             </div>
                             <div className="mb-3">
                                 <label className="form-label">Password</label>
@@ -144,15 +193,22 @@ const RegistreUser = () => {
 
                             <div className="mb-3">
                                 <label className="form-label">Email</label>
-                                <input type="email" className="form-control" id="email"
+                                <input type="email" className={((errors.email) ? "is-invalid" : "") + " form-control"}
+                                    id="email"
                                     name="email"
                                     value={User.email}
                                     onChange={handleInputChange}
+                                    onKeyUp={handleInputblur}
+                                    onBlur={handleInputblur}
                                     required />
+                                <small className="invalid-feedback" id="helpId" >
+                                    <i className="bi bi-exclamation-circle"> {errors.email}</i>
+                                </small>
                             </div>
 
                             <div>
-                                <button type="submit" className="btn btn-primary" >Sign in
+                                <button type="submit" className="btn btn-primary" >
+                                    <i className="bi bi-box-arrow-in-right">  Sign in</i>
                                 </button>
                                 <Link className="btn btn-danger" to={"/"} style={{ marginLeft: "1%" }}>
                                     <i className="bi bi-x-circle"> Cancelar</i>

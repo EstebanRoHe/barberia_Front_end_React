@@ -5,6 +5,7 @@ import AuthServices from '../services/AuthServices';
 import logo from '../images/logo.png'
 import Swal from "sweetalert2";
 import "./UserUpDate.css"
+import ModalLoading from "./ModalLoading";
 
 const UserUpDate = () => {
     const { id } = useParams();
@@ -22,21 +23,26 @@ const UserUpDate = () => {
     const [User, setUser] = useState(initialUserState);
     const [check, setCheck] = useState([]);
     const [errors, setErrors] = useState({});
+    const [showModalLoading, setShowModalLoading] = useState(false);
 
     const getUser = id => {
+        showModalLoadingHandler();
         const token = AuthServices.getAuthToken();
         if (token) {
             UserServices.setAuthToken(token);
         } else {
+            closeModalLoadingHandler();
             return;
         }
         UserServices.getBy(id)
             .then(response => {
                 setUser(response.data);
                 console.log(response.data);
+                closeModalLoadingHandler();
             })
             .catch(e => {
                 console.log(e);
+                closeModalLoadingHandler();
             });
     };
 
@@ -58,18 +64,29 @@ const UserUpDate = () => {
         setErrors(validationErrror(User));
     };
 
+    const showModalLoadingHandler = () => {
+        setShowModalLoading(true);
+    };
+
+    const closeModalLoadingHandler = () => {
+        setShowModalLoading(false);
+    };
+
     const updateUser = (e) => {
         e.preventDefault();
+        showModalLoadingHandler();
         const token = AuthServices.getAuthToken();
         if (token) {
             UserServices.setAuthToken(token);
         } else {
             console.error("No se encontró un token válido");
+            closeModalLoadingHandler();
             return;
         }
         if (Object.keys(errors).length === 0) {
         UserServices.update(User.id, User)
             .then(response => {
+                closeModalLoadingHandler();
                 console.log(response.data);
                 Swal.fire({
                     position: 'top-center',
@@ -82,21 +99,24 @@ const UserUpDate = () => {
             })
             .catch(e => {
                 console.log(e);
-
+                closeModalLoadingHandler();
             });
         }else{
-            console.log("error en el else")
+            closeModalLoadingHandler();
         }
     };
 
     const getCheck = (e) => {
+        showModalLoadingHandler();
         UserServices.check()
             .then((reponse) => {
                 setCheck(reponse.data)
                 console.log(reponse.data)
+                closeModalLoadingHandler();
             })
             .catch((e) => {
                 console.log(e);
+                closeModalLoadingHandler();
             })
     }
 
@@ -177,6 +197,9 @@ const UserUpDate = () => {
                         </form>
                     </div>
                 </div>
+                {showModalLoading && (
+                        <ModalLoading />
+                    )}
             </div>
         </div>
 

@@ -4,7 +4,7 @@ import logo from '../images/logo.png'
 import AuthServices from '../services/AuthServices';
 import BlocServices from "../services/BlocServices";
 import Swal from "sweetalert2";
-
+import ModalLoading from "./ModalLoading";
 
 const CreateBloc = () => {
  
@@ -17,6 +17,7 @@ const CreateBloc = () => {
 
     const [bloc, setBloc] = useState(initialBlocState);
     const [id, setId] = useState(null);
+    const [showModalLoading, setShowModalLoading] = useState(false);
 
     useEffect(() => {
       const idUser =  AuthServices.getAuthId();
@@ -27,16 +28,25 @@ const CreateBloc = () => {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setBloc({ ...bloc, [name]: value });
+    };
 
+    const showModalLoadingHandler = () => {
+        setShowModalLoading(true);
+    };
+
+    const closeModalLoadingHandler = () => {
+        setShowModalLoading(false);
     };
 
     const createBloc = (e) => {
         e.preventDefault();
+        showModalLoadingHandler();
         const token = AuthServices.getAuthToken();
         if (token) {
             BlocServices.setAuthToken(token);
         } else {
             console.log("No se encontró un token válido");
+            closeModalLoadingHandler();
             return;
         }
         var data = {
@@ -54,6 +64,7 @@ const CreateBloc = () => {
                     user: response.data.user,
                 });
                 console.log(response.data);
+                closeModalLoadingHandler();
                 newBloc()
                 Swal.fire({
                     position: 'top-center',
@@ -65,6 +76,7 @@ const CreateBloc = () => {
             })
             .catch(e => {
                 console.log(e);
+                closeModalLoadingHandler();
             });
 
     };
@@ -115,6 +127,9 @@ const CreateBloc = () => {
                         </form>
                     </div>
                 </div>
+                {showModalLoading && (
+                        <ModalLoading />
+                    )}
             </div>
         </div>
 

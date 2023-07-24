@@ -4,6 +4,7 @@ import logo from '../images/logo.png'
 import UserServices from "../services/UserServices";
 import { Link } from 'react-router-dom';
 import Swal from "sweetalert2";
+import ModalLoading from "./ModalLoading";
 
 const RegistreUser = () => {
     const initialUserState = {
@@ -20,9 +21,11 @@ const RegistreUser = () => {
     const [validPassword, setValidPassword] = useState({});
     const [check, setCheck] = useState([]);
     const [errors, setErrors] = useState({});
+    const [showModalLoading, setShowModalLoading] = useState(false);
 
     useEffect(() => {
         getCheck();
+          // eslint-disable-next-line
     }, [])
 
 
@@ -41,8 +44,17 @@ const RegistreUser = () => {
         setValidPassword(validationPassword(User));
     };
 
+    const showModalLoadingHandler = () => {
+        setShowModalLoading(true);
+    };
+
+    const closeModalLoadingHandler = () => {
+        setShowModalLoading(false);
+    };
+
     const createUser = (e) => {
         e.preventDefault();
+        showModalLoadingHandler();
         var data = {
             id: User.id,
             username: User.username,
@@ -64,7 +76,8 @@ const RegistreUser = () => {
                         email: response.data.email,
                     });
                     console.log(response.data);
-                    newUser()
+                    newUser();
+                    closeModalLoadingHandler();
                     Swal.fire({
                         position: 'top-center',
                         icon: 'success',
@@ -75,21 +88,25 @@ const RegistreUser = () => {
                 })
                 .catch(e => {
                     console.log(e);
+                    closeModalLoadingHandler();
                 });
         } else {
-            console.log("error de paswword")
+            closeModalLoadingHandler();
         }
     };
 
 
     const getCheck = (e) => {
+        showModalLoadingHandler();
         UserServices.check()
             .then((reponse) => {
                 setCheck(reponse.data)
                 console.log(reponse.data)
+                closeModalLoadingHandler();
             })
             .catch((e) => {
                 console.log(e);
+                closeModalLoadingHandler();
             })
     }
 
@@ -217,6 +234,9 @@ const RegistreUser = () => {
                         </form>
                     </div>
                 </div>
+                {showModalLoading && (
+                        <ModalLoading />
+                    )}
             </div>
         </div>
 

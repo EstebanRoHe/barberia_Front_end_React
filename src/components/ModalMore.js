@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -6,9 +6,19 @@ import AuthServices from "../services/AuthServices";
 import BlocServices from "../services/BlocServices";
 import Swal from "sweetalert2";
 import './ModalMore.css'
+import ModalLoading from "./ModalLoading";
 
 const ModalMore = ({ showModal, setShowModal, id, description, url, idUsername, username, first_name, last_name, email, getList, idAuth, roleAuth }) => {
+    const [showModalLoading, setShowModalLoading] = useState(false);
     const handleClose = () => setShowModal(false);
+
+    const showModalLoadingHandler = () => {
+        setShowModalLoading(true);
+    };
+
+    const closeModalLoadingHandler = () => {
+        setShowModalLoading(false);
+    };
 
     const remove = (id) => {
         const token = AuthServices.getAuthToken();
@@ -36,9 +46,11 @@ const ModalMore = ({ showModal, setShowModal, id, description, url, idUsername, 
                 reverseButtons: true,
             })
             .then((result) => {
+                showModalLoadingHandler();
                 if (result.isConfirmed) {
                     BlocServices.remove(id).then((response) => {
                         console.log(response.data);
+                        closeModalLoadingHandler();
                         swalWithBootstrapButtons.fire(
                             "Eliminado!",
                             "Tu archivo ha sido eliminado Correctamente.",
@@ -49,6 +61,7 @@ const ModalMore = ({ showModal, setShowModal, id, description, url, idUsername, 
                     })
                         .catch(error => {
                             console.log(error);
+                            closeModalLoadingHandler();
                             swalWithBootstrapButtons.fire(
                                 'Error',
                                 'Hubo un error al eliminar el archivo',
@@ -56,6 +69,7 @@ const ModalMore = ({ showModal, setShowModal, id, description, url, idUsername, 
                             );
                         });
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    closeModalLoadingHandler();
                     swalWithBootstrapButtons.fire(
                         "Cancelado",
                         "No se ha eliminado ningún archivo",
@@ -96,18 +110,20 @@ const ModalMore = ({ showModal, setShowModal, id, description, url, idUsername, 
                 </Modal.Footer >
 
                 <Modal.Footer >
-                    {idUsername === idAuth || roleAuth === 'admin' ? (
+                      {/* eslint-disable-next-line */}
+                    {idUsername == idAuth || roleAuth === 'admin' ? (
                         <>
                             <Button variant="danger" onClick={() => remove(id)}>
                                 <i className="bi bi-trash3"> </i>
                                 Eliminar
                             </Button>
+                           
                         </>
                     ) : (
                         <></>
                     )}
-
-                    {idUsername === idAuth ? (
+  {/* eslint-disable-next-line */}
+                    {idUsername == idAuth ? (
                         <>
                             <Link className="btn btn-primary"
                                 onClick={handleClose}
@@ -125,6 +141,10 @@ const ModalMore = ({ showModal, setShowModal, id, description, url, idUsername, 
                         Cancelar
                     </Button>
                 </Modal.Footer>
+                
+                {showModalLoading && (
+                        <ModalLoading />
+                    )}
             </Modal >
         </>
     );
@@ -134,20 +154,3 @@ export default ModalMore;
 
 
 
-/*
-[
-    {
-        "id": 1,
-        "description": "Descripción del Bloc",
-        "url": "https://w.forfun.com/fetch/2a/2a3c5a2a105989bebda3dba422c4bb4a.jpeg",
-        "user": 1,
-        "user_details": {
-            "id": 1,
-            "username": "admin",
-            "first_name": "",
-            "last_name": "",
-            "email": "admin@gmail.com",
-            "role": "admin"
-        }
-    },
-*/

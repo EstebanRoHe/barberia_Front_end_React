@@ -19,7 +19,7 @@ const Login = ({ setIsLoggedIn }) => {
             AuthServices.setAuthId(user_id);
             AuthServices.setAuthUsername(username);
             AuthServices.setAuthRole(role);
-            console.log("user :", username)
+            AuthServices.setAuthisLoggedIn("true");
             setErrors(false);
             setIsLoggedIn(true);
             navigate('/');

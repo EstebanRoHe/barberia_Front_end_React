@@ -36,6 +36,14 @@ const getAuthRole = () => {
   return localStorage.getItem('authRole');
 };
 
+const setAuthisLoggedIn = estado => {
+  localStorage.setItem('isLoggedIn', estado);
+};
+
+const getAuthisLoggedIn = () => {
+  return localStorage.getItem('isLoggedIn');
+};
+
 
 
 const removeAuthToken = () => {
@@ -43,6 +51,7 @@ const removeAuthToken = () => {
   localStorage.removeItem('authId');
   localStorage.removeItem('authUsername');
   localStorage.removeItem('authRole');
+  localStorage.removeItem('isLoggedIn');
 };
 
 
@@ -56,7 +65,9 @@ const AuthServices = {
   setAuthUsername,
   getAuthUsername,
   setAuthRole,
-  getAuthRole
+  getAuthRole,
+  setAuthisLoggedIn,
+  getAuthisLoggedIn,
 
 };
 

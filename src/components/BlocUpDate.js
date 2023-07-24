@@ -4,6 +4,8 @@ import logo from '../images/logo.png'
 import AuthServices from '../services/AuthServices';
 import BlocServices from "../services/BlocServices";
 import Swal from "sweetalert2";
+import ModalLoading from "./ModalLoading";
+
 const BlocUpDate = () =>{
     const { id } = useParams();
  
@@ -15,21 +17,26 @@ const BlocUpDate = () =>{
     }
 
     const [bloc, setBloc] = useState(initialBlocState);
+    const [showModalLoading, setShowModalLoading] = useState(false);
+
 
     const getUser = id => {
+        showModalLoadingHandler();
         const token = AuthServices.getAuthToken();
         if (token) {
             BlocServices.setAuthToken(token);
         } else {
+            closeModalLoadingHandler();
             return;
         }
         BlocServices.getBy(id)
             .then(response => {
                 setBloc(response.data);
-                console.log(response.data);
+                closeModalLoadingHandler();
             })
             .catch(e => {
                 console.log(e);
+                closeModalLoadingHandler();
             });
     };
 
@@ -45,19 +52,30 @@ const BlocUpDate = () =>{
         setBloc({ ...bloc, [name]: value });
     };
 
+    const showModalLoadingHandler = () => {
+        setShowModalLoading(true);
+    };
+
+    const closeModalLoadingHandler = () => {
+        setShowModalLoading(false);
+    };
+
     const updateBloc = (e) => {
         e.preventDefault();
+        showModalLoadingHandler();
         const token = AuthServices.getAuthToken();
         if (token) {
             BlocServices.setAuthToken(token);
         } else {
             console.error("No se encontró un token válido");
+            closeModalLoadingHandler();
             return;
         }
 
         BlocServices.update(id, bloc)
             .then(response => {
                 console.log(response.data);
+                closeModalLoadingHandler();
                 Swal.fire({
                     position: 'top-center',
                     icon: 'success',
@@ -69,7 +87,7 @@ const BlocUpDate = () =>{
             })
             .catch(e => {
                 console.log(e);
-
+                closeModalLoadingHandler();
             });
 
     };
@@ -112,6 +130,10 @@ const BlocUpDate = () =>{
                         </form>
                     </div>
                 </div>
+                
+                {showModalLoading && (
+                        <ModalLoading />
+                    )}
             </div>
         </div>
 

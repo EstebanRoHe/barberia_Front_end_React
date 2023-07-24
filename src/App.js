@@ -17,27 +17,32 @@ import AboutUs from './components/AboutUs';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedInAuth = AuthServices.getAuthisLoggedIn();
+  const roleToken = AuthServices.getAuthRole();
+  const [isLoggedIn, setIsLoggedIn] = useState(isLoggedInAuth);
   const [usernameIn, setUsernameIn] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState(roleToken);
   const [id, setId] = useState("");
   const [showOffcanvas, setShowOffcanvas] = useState(false);
 
   const handleLogout = () => {
     AuthServices.removeAuthToken();
-    setIsLoggedIn(false);
     setShowOffcanvas(false);
+    setIsLoggedIn(null)
+    setRole(null)
   };
 
   useEffect(() => {
-    const token = AuthServices.getAuthToken();
     const idUser = AuthServices.getAuthId();
     const user = AuthServices.getAuthUsername();
     const roleToken = AuthServices.getAuthRole();
-    setIsLoggedIn(!!token);
+    const isLoggedInAuth = AuthServices.getAuthisLoggedIn();
+
+   // setIsLoggedIn(!!token);
     setId(idUser);
     setUsernameIn(user);
     setRole(roleToken);
+    setIsLoggedIn(isLoggedInAuth);
   }, [isLoggedIn]);
 
   const handleOffcanvasClose = () => {
@@ -92,18 +97,18 @@ function App() {
             </ul>
 
             <ul className="navbar-nav ">
-              {isLoggedIn === false ? (
+              {isLoggedIn === null? (
                 <li className="nav-item">
                   <Link className="nav-link active" aria-current="page" to={"/Login"}>
-                  <i className="bi bi-box-arrow-in-right"> </i>
+                    <i className="bi bi-box-arrow-in-right"> </i>
                     Login</Link>
                 </li>
               ) : (
                 <>
                   <li className="nav-item dropdown" >
-                     {/* eslint-disable-next-line */}
+                    {/* eslint-disable-next-line */}
                     <a href="#" className="nav-link dropdown-toggle" role="button" aria-expanded="false" onClick={handleShowcanvas}>
-                      <i className="bi bi-person-circle" > </i>{usernameIn} 
+                      <i className="bi bi-person-circle" > </i>{usernameIn}
                     </a>
                     <Offcanvas placement="end"
                       show={showOffcanvas}
@@ -119,21 +124,21 @@ function App() {
                       <Offcanvas.Body style={{ backgroundColor: '#23272F', color: 'white' }}>
 
                         <ul className="navbar-nav">
-                        <li>
-                          <Link className="dropdown-item" 
-                          to={"/UserUpDate/"+id} 
-                          onClick={handleOffcanvasClose}>
-                          <i className="bi bi-gear-fill"> </i>Actualizar</Link>
+                          <li>
+                            <Link className="dropdown-item"
+                              to={"/UserUpDate/" + id}
+                              onClick={handleOffcanvasClose}>
+                              <i className="bi bi-gear-fill"> </i>Actualizar</Link>
                           </li>
 
                           <li className="nav-item">
-                          <hr style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', margin: '0.5rem 0' }} />
+                            <hr style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', margin: '0.5rem 0' }} />
                           </li>
 
                           <li className="nav-item">
-                            <Link to={"/"} className="nav-link" onClick={ () =>{
-                              handleLogout()      
-                              }}>
+                            <Link to={"/"} className="nav-link" onClick={() => {
+                              handleLogout()
+                            }}>
 
                               <i className="bi bi-box-arrow-right"></i> Cerrar sesión
                             </Link>
@@ -176,7 +181,7 @@ function App() {
           }
           {isLoggedIn ? (
             <Route path="/UserUpDate/:id" element={<UserUpDate />} />
-          ):(
+          ) : (
             <Route path="/UserUpDate/:id" element={<Navigate to="/Login" />} />
           )}
 

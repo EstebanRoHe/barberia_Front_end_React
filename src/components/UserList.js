@@ -119,13 +119,11 @@ const UserList = () => {
     };
 
     const filtroName = (filtro) => {
-        showModalLoadingHandler();
         const token = AuthServices.getAuthToken();
         if (token) {
             UserServices.setAuthToken(token);
         } else {
             console.error("No se encontró un token válido");
-            closeModalLoadingHandler();
             return;
         }
         if (filtro != null) {
@@ -133,16 +131,13 @@ const UserList = () => {
                 .then((response) => {
                     setUser(response.data);
                     setError(false);
-                    closeModalLoadingHandler();
                 })
                 .catch((e) => {
                     setError(true);
                     console.log(e);
-                    closeModalLoadingHandler();
                 });
         } else {
             getList()
-            closeModalLoadingHandler();
         }
     };
 

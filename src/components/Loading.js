@@ -18,7 +18,7 @@ const Loading = () => {
             <div></div>
         </div>
         <div>
-            <h2 style={{color:"#7e7d7d"}}>Cargando...</h2>
+        <h2 className="cargando-h2"> Cargando...</h2>
         </div>  
         </div>   
     );

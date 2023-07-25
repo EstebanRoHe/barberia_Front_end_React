@@ -2,16 +2,26 @@ import React, { useState } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthServices from '../services/AuthServices';
-
+import ModalLoading from './ModalLoading';
 
 const Login = ({ setIsLoggedIn }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState(false);
     const navigate = useNavigate();
+    const [showModalLoading, setShowModalLoading] = useState(false);
+
+    const showModalLoadingHandler = () => {
+        setShowModalLoading(true);
+    };
+
+    const closeModalLoadingHandler = () => {
+        setShowModalLoading(false);
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        showModalLoadingHandler();
         try {
             const response = await AuthServices.login({ username, password });
             const { token, user_id, role} = response.data;
@@ -22,11 +32,14 @@ const Login = ({ setIsLoggedIn }) => {
             AuthServices.setAuthisLoggedIn("true");
             setErrors(false);
             setIsLoggedIn(true);
+            closeModalLoadingHandler();
             navigate('/');
         } catch (error) {
             setErrors(true);
             console.error(error);
+            closeModalLoadingHandler();
         }
+        closeModalLoadingHandler();
     };
 
     return (
@@ -87,6 +100,9 @@ const Login = ({ setIsLoggedIn }) => {
                     </div>
                 </div>
             </div>
+            {showModalLoading && (
+                    <ModalLoading />
+                )}
             </div>
 
 

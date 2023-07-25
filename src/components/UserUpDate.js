@@ -9,7 +9,7 @@ import ModalLoading from "./ModalLoading";
 
 const UserUpDate = () => {
     const { id } = useParams();
-
+    const roleToken = AuthServices.getAuthRole();
     const initialUserState = {
         id: null,
         username: "",
@@ -17,13 +17,14 @@ const UserUpDate = () => {
         first_name: "",
         last_name: "",
         email: "",
-        role: null,
+        role: "",
     }
 
     const [User, setUser] = useState(initialUserState);
     const [check, setCheck] = useState([]);
     const [errors, setErrors] = useState({});
     const [showModalLoading, setShowModalLoading] = useState(false);
+    const [roleAdmin, setRoleAdmin] = useState(roleToken);
 
     const getUser = id => {
         showModalLoadingHandler();
@@ -47,6 +48,8 @@ const UserUpDate = () => {
     };
 
     useEffect(() => {
+        const role = AuthServices.getAuthRole();
+        setRoleAdmin(role);
         getCheck();
         if (id) {
             getUser(id);
@@ -84,24 +87,24 @@ const UserUpDate = () => {
             return;
         }
         if (Object.keys(errors).length === 0) {
-        UserServices.update(User.id, User)
-            .then(response => {
-                closeModalLoadingHandler();
-                console.log(response.data);
-                Swal.fire({
-                    position: 'top-center',
-                    icon: 'success',
-                    title: 'Usuario Actualizado Correctamente',
-                    showConfirmButton: false,
-                    timer: 2200
-                })
+            UserServices.update(User.id, User)
+                .then(response => {
+                    closeModalLoadingHandler();
+                    console.log("update", response.data);
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: 'Usuario Actualizado Correctamente',
+                        showConfirmButton: false,
+                        timer: 2200
+                    })
 
-            })
-            .catch(e => {
-                console.log(e);
-                closeModalLoadingHandler();
-            });
-        }else{
+                })
+                .catch(e => {
+                    console.log(e);
+                    closeModalLoadingHandler();
+                });
+        } else {
             closeModalLoadingHandler();
         }
     };
@@ -120,7 +123,7 @@ const UserUpDate = () => {
             })
     }
 
- 
+
     const validationErrror = (User) => {
         let errors = {}
         check.forEach(email => {
@@ -179,11 +182,25 @@ const UserUpDate = () => {
                                     onBlur={handleInputblur}
                                     onKeyUp={handleInputblur}
                                     required />
-                                     <small className="invalid-feedback" id="helpId" >
-                                        <i className="bi bi-exclamation-circle"> {errors.email}</i>
-                                    </small>
+                                <small className="invalid-feedback" id="helpId" >
+                                    <i className="bi bi-exclamation-circle"> {errors.email}</i>
+                                </small>
                             </div>
-
+                            {roleAdmin === 'admin' ? (
+                                <div className="mb-3">
+                                    <label className="form-label">Role</label>
+                                    <select
+                                        className="form-select"
+                                        aria-label="Default select example"
+                                        name="role"
+                                        value={User.role}
+                                        onChange={handleInputChange}
+                                    >
+                                        <option value="user">user</option>
+                                        <option value="admin">admin</option>
+                                    </select>
+                                </div>
+                            ) : (<></>)}
                             <div>
                                 <button type="submit" className="btn btn-primary" >
                                     <i className="bi bi-gear">  Actualizar</i>
@@ -198,8 +215,8 @@ const UserUpDate = () => {
                     </div>
                 </div>
                 {showModalLoading && (
-                        <ModalLoading />
-                    )}
+                    <ModalLoading />
+                )}
             </div>
         </div>
 

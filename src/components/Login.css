@@ -1,19 +1,4 @@
-/*.login-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    filter: brightness(60%) saturate(90%);
-    background-image: url('../images/login.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}*/
- 
+
 .login {
     min-height: 100vh;
     max-width: 100vw;

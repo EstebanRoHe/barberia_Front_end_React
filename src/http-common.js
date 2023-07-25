@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const api = axios.create({
   
- baseURL: 'http://localhost:8000',
+ baseURL: 'https://barbers-tico.onrender.com',
   headers: {
     'Content-Type': 'application/json'
-   // ,'Access-Control-Allow-Origin': '*' 
+    ,'Access-Control-Allow-Origin': '*' 
   }
 });
 
